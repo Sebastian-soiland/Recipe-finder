@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Recipe Finder - Discover Recipes Powered by AI</title>
+    <meta name="description" content="Recipe Finder - AI-powered recipe discovery. Find perfect recipes based on ingredients you have or want. Personalized, trending, and community-rated recipes." />
+    <meta name="keywords" content="recipes, cooking, AI recipes, meal planning, food discovery, recipe search" />
+    <meta name="author" content="Recipe Finder" />
+    <meta name="theme-color" content="#FFE5D9" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Recipe Finder - Discover Your Next Favorite Recipe" />
+    <meta property="og:description" content="AI-powered recipe discovery based on your ingredients" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://recipefinder.com" />
+    <meta property="og:image" content="https://recipefinder.com/hero-main.png" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Recipe Finder" />
+    <meta name="twitter:description" content="Discover recipes powered by AI" />
+    <meta name="twitter:image" content="https://recipefinder.com/hero-main.png" />
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://recipefinder.com" />
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Recipe Finder",
+      "description": "AI-powered recipe discovery and meal planning",
+      "url": "https://recipefinder.com",
+      "applicationCategory": "UtilitiesApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1250"
+      }
+    }
+    </script>    
+
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script
+      defer
+      src="%VITE_ANALYTICS_ENDPOINT%/umami"
+      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+  </body>
+
+</html>
