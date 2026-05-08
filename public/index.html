@@ -3,133 +3,585 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Finder - AI-Powered Recipe Discovery</title>
+    <title>Recipe Finder - Find Your Perfect Recipe</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #FFE5D9, #E5F3FF); min-height: 100vh; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        nav { background: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; display: flex; gap: 10px; }
-        nav button { background: #FFB6D9; border: 2px solid #000; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 5px; }
-        nav button:hover { background: #B4E7FF; }
-        .hero { background: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 20px; border: 2px solid #000; }
-        .hero h1 { font-size: 36px; margin-bottom: 10px; }
-        .search-box { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #000; }
-        .search-box h2 { margin-bottom: 15px; }
-        .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
-        .input-group input { flex: 1; padding: 10px; border: 2px solid #000; border-radius: 5px; font-size: 14px; }
-        .input-group button { background: #FFB6D9; border: 2px solid #000; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 5px; }
-        .input-group button:hover { background: #B4E7FF; }
-        .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; }
-        .tag { background: #FFE5D9; border: 2px solid #000; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-        .tag:hover { background: #FFB6D9; }
-        .search-btn { width: 100%; background: #B4E7FF; border: 2px solid #000; padding: 15px; cursor: pointer; font-weight: bold; font-size: 16px; border-radius: 5px; }
-        .search-btn:hover { background: #FFB6D9; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .card { background: white; border: 2px solid #000; border-radius: 10px; padding: 15px; cursor: pointer; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .card-emoji { font-size: 50px; text-align: center; margin-bottom: 10px; }
-        .card h3 { margin-bottom: 8px; }
-        .card p { color: #666; font-size: 13px; margin-bottom: 10px; }
-        .card-rating { color: #FFD700; margin-bottom: 10px; }
-        .card-buttons { display: flex; gap: 5px; }
-        .card-buttons button { flex: 1; background: #FFB6D9; border: 1px solid #000; padding: 8px; cursor: pointer; font-weight: bold; border-radius: 5px; font-size: 12px; }
-        .card-buttons button:hover { background: #B4E7FF; }
-        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
-        .modal.show { display: flex; }
-        .modal-content { background: white; padding: 30px; border-radius: 15px; max-width: 600px; max-height: 80vh; overflow-y: auto; border: 3px solid #000; }
-        .modal-close { float: right; font-size: 28px; cursor: pointer; font-weight: bold; }
-        .modal-close:hover { color: #FFB6D9; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .money { background: #FFFACD; border: 3px dashed #000; border-radius: 15px; padding: 20px; text-align: center; }
-        .money h2 { margin-bottom: 15px; }
-        .money-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 15px; }
-        .money-item { background: white; padding: 15px; border-radius: 8px; border: 2px solid #000; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23f4a460" width="1200" height="400"/><circle cx="100" cy="100" r="80" fill="%23ff6b6b"/><circle cx="400" cy="150" r="100" fill="%2344af69"/><circle cx="800" cy="120" r="90" fill="%23f9ca24"/><circle cx="1100" cy="200" r="110" fill="%23ff6b6b"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            font-size: 20px;
+            max-width: 600px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Navigation */
+        nav {
+            background: #222;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 10px 20px;
+            transition: color 0.3s;
+            font-weight: bold;
+        }
+
+        nav button:hover {
+            color: #ff6b6b;
+        }
+
+        nav button.active {
+            color: #ff6b6b;
+            border-bottom: 3px solid #ff6b6b;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            padding: 40px 20px;
+            margin: -50px 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #222;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        .search-box button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #ff5252;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .tag:hover {
+            background: #e0e0e0;
+        }
+
+        .tag.selected {
+            background: #44af69;
+            color: white;
+        }
+
+        .tag .remove {
+            margin-left: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Category Section */
+        .categories {
+            padding: 40px 20px;
+            background: #f9f9f9;
+        }
+
+        .categories h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            color: #222;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category-box {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .category-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .category-box.red { border-color: #ff6b6b; }
+        .category-box.green { border-color: #44af69; }
+        .category-box.yellow { border-color: #f9ca24; }
+        .category-box.blue { border-color: #1e90ff; }
+        .category-box.orange { border-color: #ff9500; }
+        .category-box.purple { border-color: #9c27b0; }
+
+        .category-box-emoji {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .category-box h3 {
+            font-size: 18px;
+            color: #222;
+        }
+
+        /* Recipes Grid */
+        .recipes-section {
+            padding: 40px 20px;
+        }
+
+        .recipes-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            color: #222;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .recipe-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #ff9500, #f9ca24);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .recipe-content {
+            padding: 20px;
+        }
+
+        .recipe-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .recipe-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .recipe-rating {
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+
+        .recipe-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .recipe-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .recipe-buttons button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-view {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #ff5252;
+        }
+
+        .btn-save {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-save:hover {
+            background: #e0e0e0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        /* Monetization */
+        .monetization {
+            background: linear-gradient(135deg, #ff6b6b, #ff9500);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .monetization h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .money-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .money-item {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .money-item h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .money-item p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: #222;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 32px; }
+            .search-section { margin: -40px 10px 30px; }
+            .recipes-grid { grid-template-columns: 1fr; }
+            nav .container { gap: 15px; }
+            nav button { padding: 8px 12px; font-size: 14px; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Navigation -->
-        <nav>
-            <button onclick="switchTab('home')">🏠 Home</button>
-            <button onclick="switchTab('trending')">🔥 Trending</button>
-            <button onclick="switchTab('community')">👥 Community</button>
-            <button onclick="switchTab('premium')">⭐ Premium</button>
-        </nav>
+    <!-- Header -->
+    <header>
+        <div class="logo">🍽️ Recipe Finder</div>
+        <h1>Find Your Perfect Recipe</h1>
+        <p>Discover delicious recipes based on ingredients you have or want to cook</p>
+    </header>
 
-        <!-- Home Tab -->
-        <div id="home" class="tab-content active">
-            <div class="hero">
-                <h1>🍽️ Recipe Finder</h1>
-                <p>AI-Powered Recipe Discovery with Dual Search Modes</p>
-            </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <button class="nav-btn active" onclick="switchTab('home')">🏠 Home</button>
+            <button class="nav-btn" onclick="switchTab('categories')">🎯 Categories</button>
+            <button class="nav-btn" onclick="switchTab('trending')">🔥 Trending</button>
+            <button class="nav-btn" onclick="switchTab('premium')">⭐ Premium</button>
+        </div>
+    </nav>
 
+    <!-- Home Tab -->
+    <div id="home" class="tab-content active">
+        <div class="search-section">
+            <h2>Tell us what sounds good.</h2>
             <div class="search-box">
-                <h2>🔍 Find Your Perfect Recipe</h2>
-                <div class="input-group">
-                    <input type="text" id="ingredient" placeholder="Enter ingredient (e.g., chicken, tomato, rice)" />
-                    <button onclick="addIngredient()">Add</button>
-                </div>
-                <div class="tags" id="tags"></div>
-                <button class="search-btn" onclick="searchRecipes()">🔍 Search Recipes</button>
+                <input type="text" id="ingredient-input" placeholder="Search by ingredient (e.g., chicken, tomato, rice)...">
+                <button onclick="addIngredient()">Add Ingredient</button>
             </div>
-
-            <div class="grid" id="recipes"></div>
-        </div>
-
-        <!-- Trending Tab -->
-        <div id="trending" class="tab-content">
-            <div class="hero">
-                <h1>🔥 Trending Recipes</h1>
-                <p>Most popular recipes this week</p>
-            </div>
-            <div class="grid" id="trending-recipes"></div>
-        </div>
-
-        <!-- Community Tab -->
-        <div id="community" class="tab-content">
-            <div class="hero">
-                <h1>👥 Community Favorites</h1>
-                <p>Shared by our amazing community</p>
-            </div>
-            <div class="grid" id="community-recipes"></div>
-        </div>
-
-        <!-- Premium Tab -->
-        <div id="premium" class="tab-content">
-            <div class="hero">
-                <h1>⭐ Premium Features</h1>
-                <p>Unlock unlimited recipes and exclusive content</p>
-            </div>
-            <div style="background: white; padding: 30px; border-radius: 15px; text-align: center; border: 2px solid #000;">
-                <h2>Premium Subscription - $4.99/month</h2>
-                <ul style="text-align: left; display: inline-block; margin: 20px 0; line-height: 2;">
-                    <li>✅ Unlimited recipe searches</li>
-                    <li>✅ Ad-free experience</li>
-                    <li>✅ Save favorite recipes</li>
-                    <li>✅ Exclusive recipes</li>
-                    <li>✅ Meal planning tools</li>
-                </ul>
-                <button class="search-btn" onclick="alert('Premium subscription coming soon!')">Subscribe Now</button>
+            <div class="tags" id="ingredients-tags"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="searchRecipes()" style="background: #44af69; color: white; border: none; padding: 12px 40px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px;">
+                    🔍 Search Recipes
+                </button>
             </div>
         </div>
 
-        <!-- Monetization -->
-        <div class="money" style="margin-top: 30px;">
-            <h2>💰 Start Making Money Today!</h2>
-            <p>Your Recipe Finder generates revenue from multiple streams:</p>
-            <div class="money-grid">
-                <div class="money-item"><strong>📢 Google Ads</strong><br>$20-$100/day</div>
-                <div class="money-item"><strong>🛒 Affiliate Links</strong><br>$50-$500/day</div>
-                <div class="money-item"><strong>💳 Premium</strong><br>$5,000+/month</div>
-                <div class="money-item"><strong>⭐ Sponsorships</strong><br>$1,000-$5,000</div>
-            </div>
-            <p style="margin-top: 15px; font-weight: bold;">Year 1 Potential: $100,000+</p>
+        <div class="recipes-section">
+            <div class="recipes-grid" id="recipes-grid"></div>
         </div>
     </div>
 
+    <!-- Categories Tab -->
+    <div id="categories" class="tab-content">
+        <div class="categories">
+            <h2>Tell us what sounds good.</h2>
+            <div class="category-grid">
+                <div class="category-box red" onclick="selectCategory('Pasta')">
+                    <div class="category-box-emoji">🍝</div>
+                    <h3>Pasta</h3>
+                </div>
+                <div class="category-box green" onclick="selectCategory('Salad')">
+                    <div class="category-box-emoji">🥗</div>
+                    <h3>Salad</h3>
+                </div>
+                <div class="category-box yellow" onclick="selectCategory('Curry')">
+                    <div class="category-box-emoji">🥘</div>
+                    <h3>Curry</h3>
+                </div>
+                <div class="category-box blue" onclick="selectCategory('Seafood')">
+                    <div class="category-box-emoji">🐟</div>
+                    <h3>Seafood</h3>
+                </div>
+                <div class="category-box orange" onclick="selectCategory('Chicken')">
+                    <div class="category-box-emoji">🍗</div>
+                    <h3>Chicken</h3>
+                </div>
+                <div class="category-box purple" onclick="selectCategory('Dessert')">
+                    <div class="category-box-emoji">🍰</div>
+                    <h3>Dessert</h3>
+                </div>
+            </div>
+            <div class="recipes-grid" id="category-recipes"></div>
+        </div>
+    </div>
+
+    <!-- Trending Tab -->
+    <div id="trending" class="tab-content">
+        <div class="recipes-section">
+            <h2>🔥 Trending Recipes</h2>
+            <div class="recipes-grid" id="trending-recipes"></div>
+        </div>
+    </div>
+
+    <!-- Premium Tab -->
+    <div id="premium" class="tab-content">
+        <div style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
+            <h2 style="text-align: center; margin-bottom: 40px; font-size: 32px;">⭐ Premium Features</h2>
+            <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto;">
+                <h3 style="font-size: 28px; margin-bottom: 20px; text-align: center;">Premium Subscription</h3>
+                <p style="font-size: 24px; color: #ff6b6b; font-weight: bold; text-align: center; margin-bottom: 30px;">$4.99/month</p>
+                <ul style="text-align: left; line-height: 2.5; margin-bottom: 30px;">
+                    <li>✅ Unlimited recipe searches</li>
+                    <li>✅ Ad-free experience</li>
+                    <li>✅ Save unlimited recipes</li>
+                    <li>✅ Exclusive recipes</li>
+                    <li>✅ Meal planning tools</li>
+                    <li>✅ Personalized recommendations</li>
+                </ul>
+                <button onclick="alert('Premium subscription coming soon!')" style="width: 100%; background: #ff6b6b; color: white; border: none; padding: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px;">
+                    Subscribe Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Monetization -->
+    <div class="monetization">
+        <h2>💰 Start Making Money Today!</h2>
+        <div class="money-grid">
+            <div class="money-item">
+                <h3>📢 Google Ads</h3>
+                <p>$20-$100/day</p>
+            </div>
+            <div class="money-item">
+                <h3>🛒 Affiliate Links</h3>
+                <p>$50-$500/day</p>
+            </div>
+            <div class="money-item">
+                <h3>💳 Premium</h3>
+                <p>$5,000+/month</p>
+            </div>
+            <div class="money-item">
+                <h3>⭐ Sponsorships</h3>
+                <p>$1,000-$5,000 each</p>
+            </div>
+        </div>
+        <p style="margin-top: 30px; font-size: 18px; font-weight: bold;">Year 1 Potential: $100,000+</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Recipe Finder. All rights reserved. | Made with ❤️ for food lovers</p>
+    </footer>
+
     <!-- Modal -->
-    <div id="modal" class="modal">
+    <div id="recipe-modal" class="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal()">&times;</span>
             <div id="modal-body"></div>
@@ -138,18 +590,18 @@
 
     <script>
         const recipes = [
-            { id: 1, name: "Chicken Stir Fry", emoji: "🍗", desc: "Quick stir-fried chicken with vegetables", ingredients: ["chicken", "vegetables"], time: "20 mins", rating: "⭐⭐⭐⭐⭐", instructions: ["Cut chicken", "Heat wok", "Add chicken", "Add vegetables", "Serve"] },
-            { id: 2, name: "Tomato Pasta", emoji: "🍝", desc: "Classic Italian pasta with fresh tomato sauce", ingredients: ["pasta", "tomato", "garlic"], time: "25 mins", rating: "⭐⭐⭐⭐", instructions: ["Cook pasta", "Sauté garlic", "Add tomatoes", "Simmer", "Mix"] },
-            { id: 3, name: "Vegetable Curry", emoji: "🥘", desc: "Aromatic Indian curry with mixed vegetables", ingredients: ["vegetables", "coconut milk", "spices"], time: "30 mins", rating: "⭐⭐⭐⭐⭐", instructions: ["Heat oil", "Add spices", "Add vegetables", "Add coconut milk", "Simmer"] },
-            { id: 4, name: "Grilled Fish", emoji: "🐟", desc: "Perfectly grilled fish with lemon and herbs", ingredients: ["fish", "lemon", "herbs"], time: "15 mins", rating: "⭐⭐⭐⭐⭐", instructions: ["Preheat grill", "Season fish", "Grill 4-5 mins", "Add lemon", "Serve"] },
-            { id: 5, name: "Caesar Salad", emoji: "🥗", desc: "Crispy romaine with homemade Caesar dressing", ingredients: ["romaine", "parmesan", "croutons"], time: "10 mins", rating: "⭐⭐⭐⭐", instructions: ["Wash lettuce", "Make dressing", "Toss", "Add toppings", "Serve"] },
-            { id: 6, name: "Chocolate Cake", emoji: "🍰", desc: "Rich and moist chocolate cake with frosting", ingredients: ["flour", "chocolate", "eggs", "butter"], time: "45 mins", rating: "⭐⭐⭐⭐⭐", instructions: ["Mix dry", "Mix wet", "Combine", "Bake 30 mins", "Frost"] }
+            { id: 1, name: "Chicken Stir Fry", emoji: "🍗", category: "Chicken", desc: "Quick and delicious stir-fried chicken with fresh vegetables", ingredients: ["chicken", "vegetables", "soy sauce"], time: "20 mins", difficulty: "Easy", rating: 4.8, reviews: 245, instructions: ["Cut chicken into bite-sized pieces", "Heat wok or large pan", "Add chicken and cook until golden", "Add vegetables and stir fry for 5 minutes", "Add soy sauce and serve hot"] },
+            { id: 2, name: "Tomato Pasta", emoji: "🍝", category: "Pasta", desc: "Classic Italian pasta with fresh tomato sauce", ingredients: ["pasta", "tomato", "garlic", "olive oil"], time: "25 mins", difficulty: "Easy", rating: 4.7, reviews: 312, instructions: ["Cook pasta according to package directions", "Sauté garlic in olive oil", "Add crushed tomatoes and simmer", "Season with salt and pepper", "Toss pasta with sauce"] },
+            { id: 3, name: "Vegetable Curry", emoji: "🥘", category: "Curry", desc: "Aromatic Indian curry with mixed vegetables", ingredients: ["vegetables", "coconut milk", "curry spices", "rice"], time: "30 mins", difficulty: "Medium", rating: 4.6, reviews: 189, instructions: ["Heat oil and add curry spices", "Add chopped vegetables", "Pour in coconut milk", "Simmer for 15 minutes", "Serve with rice"] },
+            { id: 4, name: "Grilled Fish", emoji: "🐟", category: "Seafood", desc: "Perfectly grilled fish with lemon and herbs", ingredients: ["fish", "lemon", "herbs", "olive oil"], time: "15 mins", difficulty: "Easy", rating: 4.9, reviews: 267, instructions: ["Preheat grill to medium-high", "Season fish with salt, pepper, and herbs", "Grill for 4-5 minutes per side", "Squeeze fresh lemon juice", "Serve immediately"] },
+            { id: 5, name: "Caesar Salad", emoji: "🥗", category: "Salad", desc: "Crispy romaine with homemade Caesar dressing", ingredients: ["romaine", "parmesan", "croutons", "caesar dressing"], time: "10 mins", difficulty: "Easy", rating: 4.5, reviews: 198, instructions: ["Wash and chop romaine lettuce", "Make or prepare Caesar dressing", "Toss lettuce with dressing", "Add parmesan and croutons", "Serve immediately"] },
+            { id: 6, name: "Chocolate Cake", emoji: "🍰", category: "Dessert", desc: "Rich and moist chocolate cake with frosting", ingredients: ["flour", "chocolate", "eggs", "butter", "sugar"], time: "45 mins", difficulty: "Medium", rating: 4.8, reviews: 421, instructions: ["Preheat oven to 350°F", "Mix dry ingredients", "Combine wet ingredients", "Mix wet and dry ingredients", "Bake for 30-35 minutes", "Cool and frost"] }
         ];
 
         let selectedIngredients = [];
 
         function addIngredient() {
-            const input = document.getElementById('ingredient');
+            const input = document.getElementById('ingredient-input');
             const ing = input.value.trim().toLowerCase();
             if (ing && !selectedIngredients.includes(ing)) {
                 selectedIngredients.push(ing);
@@ -159,9 +611,9 @@
         }
 
         function updateTags() {
-            const tags = document.getElementById('tags');
-            tags.innerHTML = selectedIngredients.map(ing => 
-                `<div class="tag">${ing} <span onclick="removeIngredient('${ing}')" style="cursor:pointer;margin-left:5px;">✕</span></div>`
+            const container = document.getElementById('ingredients-tags');
+            container.innerHTML = selectedIngredients.map(ing => 
+                `<div class="tag selected">${ing} <span class="remove" onclick="removeIngredient('${ing}')">✕</span></div>`
             ).join('');
         }
 
@@ -176,20 +628,35 @@
                 return;
             }
             const filtered = recipes.filter(r => selectedIngredients.some(ing => r.ingredients.some(ri => ri.includes(ing) || ing.includes(ri))));
-            displayRecipes(filtered.length > 0 ? filtered : recipes, 'recipes');
+            displayRecipes(filtered.length > 0 ? filtered : recipes, 'recipes-grid');
+        }
+
+        function selectCategory(category) {
+            const filtered = recipes.filter(r => r.category === category);
+            displayRecipes(filtered, 'category-recipes');
         }
 
         function displayRecipes(list, elementId) {
-            document.getElementById(elementId).innerHTML = list.map(r => `
-                <div class="card" onclick="showRecipe(${r.id})">
-                    <div class="card-emoji">${r.emoji}</div>
-                    <h3>${r.name}</h3>
-                    <p>${r.desc}</p>
-                    <div class="card-rating">${r.rating}</div>
-                    <p style="font-size:12px;color:#999;">⏱️ ${r.time}</p>
-                    <div class="card-buttons">
-                        <button onclick="event.stopPropagation(); alert('Added to favorites!')">❤️ Save</button>
-                        <button onclick="event.stopPropagation(); alert('Shared!')">📤 Share</button>
+            const container = document.getElementById(elementId);
+            if (list.length === 0) {
+                container.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;">No recipes found. Try different ingredients!</div>';
+                return;
+            }
+            container.innerHTML = list.map(r => `
+                <div class="recipe-card">
+                    <div class="recipe-image">${r.emoji}</div>
+                    <div class="recipe-content">
+                        <h3>${r.name}</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ ${r.time}</span>
+                            <span>📊 ${r.difficulty}</span>
+                        </div>
+                        <div class="recipe-rating">${'⭐'.repeat(Math.floor(r.rating))} ${r.rating} (${r.reviews})</div>
+                        <div class="recipe-description">${r.desc}</div>
+                        <div class="recipe-buttons">
+                            <button class="btn-view" onclick="showRecipe(${r.id})">View Recipe</button>
+                            <button class="btn-save" onclick="alert('Added to favorites!')">❤️ Save</button>
+                        </div>
                     </div>
                 </div>
             `).join('');
@@ -198,45 +665,73 @@
         function showRecipe(id) {
             const r = recipes.find(x => x.id === id);
             document.getElementById('modal-body').innerHTML = `
-                <div style="text-align:center;">
-                    <div style="font-size:80px;margin-bottom:10px;">${r.emoji}</div>
-                    <h2>${r.name}</h2>
-                    <p style="color:#666;margin:10px 0;">${r.desc}</p>
-                    <div style="background:#FFE5D9;padding:15px;border-radius:10px;margin:15px 0;">
-                        <strong>⏱️ Time: ${r.time}</strong><br>
-                        <strong>${r.rating}</strong>
+                <div style="text-align: center;">
+                    <div style="font-size: 100px; margin-bottom: 20px;">${r.emoji}</div>
+                    <h2 style="margin-bottom: 10px;">${r.name}</h2>
+                    <p style="color: #666; margin-bottom: 20px;">${r.desc}</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: #f0f0f0; padding: 15px; border-radius: 5px;">
+                            <strong>⏱️ Time</strong><br>${r.time}
+                        </div>
+                        <div style="background: #f0f0f0; padding: 15px; border-radius: 5px;">
+                            <strong>📊 Difficulty</strong><br>${r.difficulty}
+                        </div>
                     </div>
-                    <h3>🥘 Ingredients</h3>
-                    <ul style="text-align:left;display:inline-block;margin:10px 0;">
-                        ${r.ingredients.map(i => `<li>${i}</li>`).join('')}
-                    </ul>
-                    <h3 style="margin-top:15px;">👨‍🍳 Instructions</h3>
-                    <ol style="text-align:left;display:inline-block;margin:10px 0;">
-                        ${r.instructions.map(i => `<li>${i}</li>`).join('')}
-                    </ol>
-                    <div style="margin-top:20px;">
-                        <button class="search-btn" onclick="alert('Added to favorites!')">❤️ Save Recipe</button>
+
+                    <div style="text-align: left; margin-bottom: 20px;">
+                        <h3>🥘 Ingredients</h3>
+                        <ul style="margin-left: 20px;">
+                            ${r.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div style="text-align: left; margin-bottom: 20px;">
+                        <h3>👨‍🍳 Instructions</h3>
+                        <ol style="margin-left: 20px;">
+                            ${r.instructions.map(inst => `<li>${inst}</li>`).join('')}
+                        </ol>
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <button onclick="alert('Added to favorites!')" style="flex: 1; background: #ff6b6b; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                            ❤️ Save Recipe
+                        </button>
+                        <button onclick="alert('Shared!')" style="flex: 1; background: #44af69; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                            📤 Share
+                        </button>
                     </div>
                 </div>
             `;
-            document.getElementById('modal').classList.add('show');
+            document.getElementById('recipe-modal').classList.add('show');
         }
 
         function closeModal() {
-            document.getElementById('modal').classList.remove('show');
+            document.getElementById('recipe-modal').classList.remove('show');
         }
 
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.getElementById(tab).classList.add('active');
-            
-            if (tab === 'trending') displayRecipes(recipes, 'trending-recipes');
-            if (tab === 'community') displayRecipes(recipes.slice().reverse(), 'community-recipes');
+
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (tab === 'trending') {
+                displayRecipes(recipes, 'trending-recipes');
+            } else if (tab === 'categories') {
+                displayRecipes(recipes.slice(0, 3), 'category-recipes');
+            }
         }
 
         // Initial display
-        displayRecipes(recipes.slice(0, 3), 'recipes');
-        document.getElementById('ingredient').addEventListener('keypress', e => { if (e.key === 'Enter') addIngredient(); });
+        displayRecipes(recipes.slice(0, 3), 'recipes-grid');
+        document.getElementById('ingredient-input').addEventListener('keypress', e => {
+            if (e.key === 'Enter') addIngredient();
+        });
+        document.getElementById('recipe-modal').addEventListener('click', e => {
+            if (e.target.id === 'recipe-modal') closeModal();
+        });
     </script>
 </body>
 </html>
