@@ -15,10 +15,12 @@
 
         /* Header */
         header {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23f4a460" width="1200" height="400"/><circle cx="100" cy="100" r="80" fill="%23ff6b6b"/><circle cx="400" cy="150" r="100" fill="%2344af69"/><circle cx="800" cy="120" r="90" fill="%23f9ca24"/><circle cx="1100" cy="200" r="110" fill="%23ff6b6b"/></svg>');
-            background-size: cover;
-            background-position: center;
-            color: white;
+            background:
+                radial-gradient(circle at 12% 18%, rgba(255, 116, 102, 0.28) 0 90px, transparent 92px),
+                radial-gradient(circle at 88% 20%, rgba(255, 207, 92, 0.38) 0 110px, transparent 112px),
+                radial-gradient(circle at 78% 88%, rgba(68, 175, 105, 0.20) 0 150px, transparent 152px),
+                linear-gradient(135deg, #fffaf4 0%, #ffe9dc 48%, #fff2c9 100%);
+            color: #20252b;
             padding: 60px 20px;
             text-align: center;
             min-height: 400px;
@@ -32,19 +34,19 @@
             font-size: 48px;
             font-weight: bold;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 14px rgba(125, 72, 45, 0.12);
         }
 
         header h1 {
             font-size: 48px;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 14px rgba(125, 72, 45, 0.12);
         }
 
         header p {
             font-size: 20px;
             max-width: 600px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            text-shadow: none;
         }
 
         /* Navigation */
@@ -388,44 +390,6 @@
             color: #333;
         }
 
-        /* Monetization */
-        .monetization {
-            background: linear-gradient(135deg, #ff6b6b, #ff9500);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .monetization h2 {
-            font-size: 32px;
-            margin-bottom: 30px;
-        }
-
-        .money-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .money-item {
-            background: rgba(255,255,255,0.2);
-            padding: 20px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-        }
-
-        .money-item h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .money-item p {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
         /* Footer */
         footer {
             background: #222;
@@ -471,7 +435,6 @@
             <button class="nav-btn active" onclick="switchTab('home')">🏠 Home</button>
             <button class="nav-btn" onclick="switchTab('categories')">🎯 Categories</button>
             <button class="nav-btn" onclick="switchTab('trending')">🔥 Trending</button>
-            <button class="nav-btn" onclick="switchTab('premium')">⭐ Premium</button>
         </div>
     </nav>
 
@@ -535,67 +498,6 @@
         <div class="recipes-section">
             <h2>🔥 Trending Recipes</h2>
             <div class="recipes-grid" id="trending-recipes"></div>
-        </div>
-    </div>
-
-    <!-- Premium Tab -->
-    <div id="premium" class="tab-content">
-        <div style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
-            <h2 style="text-align: center; margin-bottom: 40px; font-size: 32px;">⭐ Premium Features</h2>
-            <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto;">
-                <h3 style="font-size: 28px; margin-bottom: 20px; text-align: center;">Premium Subscription</h3>
-                <p style="font-size: 24px; color: #ff6b6b; font-weight: bold; text-align: center; margin-bottom: 30px;">$4.99/month</p>
-                <ul style="text-align: left; line-height: 2.5; margin-bottom: 30px;">
-                    <li>✅ Unlimited recipe searches</li>
-                    <li>✅ Ad-free experience</li>
-                    <li>✅ Save unlimited recipes</li>
-                    <li>✅ Exclusive recipes</li>
-                    <li>✅ Meal planning tools</li>
-                    <li>✅ Personalized recommendations</li>
-                </ul>
-                <button onclick="alert('Premium subscription coming soon!')" style="width: 100%; background: #ff6b6b; color: white; border: none; padding: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px;">
-                    Subscribe Now
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Monetization -->
-    <div class="monetization">
-        <h2>💰 Monetize Your Recipe Finder</h2>
-        <p style="margin-bottom: 30px; font-size: 18px;">Multiple revenue streams to earn from your platform:</p>
-        <div class="money-grid">
-            <div class="money-item">
-                <h3>📢 Google AdSense</h3>
-                <p>Display ads on your site</p>
-                <p style="font-size: 14px; margin-top: 10px;">Earn $20-$100/day</p>
-            </div>
-            <div class="money-item">
-                <h3>🛒 Affiliate Marketing</h3>
-                <p>Link to kitchen products & ingredients</p>
-                <p style="font-size: 14px; margin-top: 10px;">Earn $50-$500/day</p>
-            </div>
-            <div class="money-item">
-                <h3>💳 Premium Membership</h3>
-                <p>Charge users $4.99/month</p>
-                <p style="font-size: 14px; margin-top: 10px;">Earn $5,000+/month</p>
-            </div>
-            <div class="money-item">
-                <h3>⭐ Brand Sponsorships</h3>
-                <p>Partner with food brands</p>
-                <p style="font-size: 14px; margin-top: 10px;">Earn $1,000-$5,000 each</p>
-            </div>
-        </div>
-        <p style="margin-top: 30px; font-size: 18px; font-weight: bold;">💵 Year 1 Potential: $100,000+</p>
-        <div style="margin-top: 30px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
-            <h3 style="margin-bottom: 15px;">🚀 Get Started Today</h3>
-            <p style="margin-bottom: 15px;">Ready to start earning? Here's how:</p>
-            <ol style="text-align: left; display: inline-block; line-height: 2;">
-                <li>Sign up for Google AdSense</li>
-                <li>Join affiliate programs (Amazon, kitchen brands)</li>
-                <li>Set up premium subscription</li>
-                <li>Reach out to food brands for sponsorships</li>
-            </ol>
         </div>
     </div>
 
