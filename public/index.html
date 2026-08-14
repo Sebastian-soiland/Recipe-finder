@@ -151,6 +151,92 @@
             background: #ff5252;
         }
 
+        .photo-search {
+            margin: 6px 0 20px;
+            text-align: center;
+        }
+
+        .photo-button {
+            width: 100%;
+            max-width: 420px;
+            padding: 13px 18px;
+            border: 2px solid #44af69;
+            border-radius: 8px;
+            background: #f4fff7;
+            color: #257343;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .photo-button:hover {
+            background: #e1f7e8;
+            transform: translateY(-1px);
+        }
+
+        .photo-help {
+            margin: 8px 0 0;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .photo-preview {
+            display: none;
+            max-width: 420px;
+            margin: 16px auto 0;
+            padding: 12px;
+            border: 1px solid #dbe8df;
+            border-radius: 10px;
+            background: #fbfffc;
+        }
+
+        .photo-preview.show {
+            display: block;
+        }
+
+        .photo-preview img {
+            width: 100%;
+            max-height: 240px;
+            object-fit: cover;
+            border-radius: 7px;
+        }
+
+        .photo-status {
+            margin: 10px 0;
+            color: #4f5f55;
+            font-size: 14px;
+        }
+
+        .photo-actions {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .photo-actions button {
+            padding: 9px 13px;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .photo-analyze {
+            background: #44af69;
+            color: white;
+        }
+
+        .photo-clear {
+            background: #ecefed;
+            color: #3c4740;
+        }
+
+        #photo-input {
+            display: none;
+        }
+
         .tags {
             display: flex;
             flex-wrap: wrap;
@@ -446,6 +532,21 @@
                 <input type="text" id="ingredient-input" placeholder="Search by ingredient (e.g., chicken, tomato, rice)...">
                 <button onclick="addIngredient()">Add Ingredient</button>
             </div>
+
+            <div class="photo-search">
+                <input id="photo-input" type="file" accept="image/*" capture="environment" onchange="handlePhoto(event)">
+                <button type="button" class="photo-button" onclick="document.getElementById('photo-input').click()">📷 Ta bilde av ingrediensene</button>
+                <p class="photo-help">Eller velg et bilde fra mobilen</p>
+                <div id="photo-preview" class="photo-preview">
+                    <img id="photo-preview-image" alt="Forhåndsvisning av ingrediensbildet">
+                    <p id="photo-status" class="photo-status">Bildet er klart for analyse.</p>
+                    <div class="photo-actions">
+                        <button type="button" class="photo-analyze" onclick="analyzePhoto()">✨ Finn ingredienser fra bildet</button>
+                        <button type="button" class="photo-clear" onclick="clearPhoto()">Fjern bilde</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="tags" id="ingredients-tags"></div>
             <div style="text-align: center; margin-top: 20px;">
                 <button onclick="searchRecipes()" style="background: #44af69; color: white; border: none; padding: 12px 40px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px;">
@@ -531,6 +632,87 @@
         ];
 
         let selectedIngredients = [];
+        let photoDataUrl = '';
+
+        function handlePhoto(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            if (!file.type.startsWith('image/')) {
+                alert('Velg et bilde av ingrediensene.');
+                return;
+            }
+            if (file.size > 8 * 1024 * 1024) {
+                alert('Bildet er for stort. Velg et bilde under 8 MB.');
+                event.target.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                const source = new Image();
+                source.onload = () => {
+                    const maxSide = 1600;
+                    const scale = Math.min(1, maxSide / Math.max(source.naturalWidth, source.naturalHeight));
+                    const canvas = document.createElement('canvas');
+                    canvas.width = Math.round(source.naturalWidth * scale);
+                    canvas.height = Math.round(source.naturalHeight * scale);
+                    canvas.getContext('2d').drawImage(source, 0, 0, canvas.width, canvas.height);
+                    photoDataUrl = canvas.toDataURL('image/jpeg', 0.78);
+                    document.getElementById('photo-preview-image').src = photoDataUrl;
+                    document.getElementById('photo-status').textContent = 'Bildet er klart. Trykk «Finn ingredienser fra bildet». ';
+                    document.getElementById('photo-preview').classList.add('show');
+                };
+                source.src = reader.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function analyzePhoto() {
+            if (!photoDataUrl) {
+                alert('Ta eller velg et bilde først.');
+                return;
+            }
+
+            const status = document.getElementById('photo-status');
+            const button = document.querySelector('.photo-analyze');
+            status.textContent = 'Analyserer bildet …';
+            button.disabled = true;
+
+            try {
+                const response = await fetch('/api/analyze-ingredients', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: photoDataUrl })
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || 'Kunne ikke analysere bildet.');
+
+                const ingredients = Array.isArray(result.ingredients) ? result.ingredients : [];
+                ingredients.forEach(ingredient => {
+                    const cleaned = String(ingredient).trim().toLowerCase();
+                    if (cleaned && !selectedIngredients.includes(cleaned)) selectedIngredients.push(cleaned);
+                });
+                updateTags();
+
+                if (ingredients.length) {
+                    status.textContent = `Fant ${ingredients.length} ingredienser. Trykk «Search Recipes» for å se forslag.`;
+                } else {
+                    status.textContent = 'Jeg fant ingen tydelige ingredienser. Prøv et lysere bilde med ingrediensene nærmere kameraet.';
+                }
+            } catch (error) {
+                status.textContent = error.message || 'Bildeanalyse er ikke tilgjengelig akkurat nå.';
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        function clearPhoto() {
+            photoDataUrl = '';
+            document.getElementById('photo-input').value = '';
+            document.getElementById('photo-preview-image').removeAttribute('src');
+            document.getElementById('photo-preview').classList.remove('show');
+            document.getElementById('photo-status').textContent = '';
+        }
 
         function addIngredient() {
             const input = document.getElementById('ingredient-input');
